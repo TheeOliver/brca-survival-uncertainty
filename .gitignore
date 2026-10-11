@@ -1,6 +1,6 @@
 # --- Patient data: NEVER committed -------------------------------------------
-# METABRIC is access-controlled (EGA EGAS00000000083 / Synapse syn1688369).
-# Redistributing it via this repo would breach the data access agreement.
+# This project uses public cBioPortal clinical tables, but Git does not redistribute
+# patient-level extracts. Controlled-access expression/genomic data are not used.
 data/**
 !data/**/
 !data/**/.gitkeep
