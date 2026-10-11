@@ -13,3 +13,7 @@ These aggregate results come from the completed local METABRIC analysis: breast-
 - [Coverage by PAM50 subgroup (PNG)](figures/rq5_subgroup_coverage_width__disease_specific__clinical_molecular__conservative__horizon120__pam50_subtype.png) · [PDF](figures/rq5_subgroup_coverage_width__disease_specific__clinical_molecular__conservative__horizon120__pam50_subtype.pdf): exploratory; marginal coverage gives no subgroup guarantee.
 
 The [overall training survival curve (PNG)](figures/training_disease_specific_overall_km.png) and its [PDF](figures/training_disease_specific_overall_km.pdf) provide additional EDA context. The detailed report gives the numerical results and limitations.
+
+## Exploratory reliability comparison
+
+[Read the post hoc reliability comparison](reliability_comparison.md), including coverage and width figures for disease-specific and overall survival at 120 and 300 months. These analyses reuse the test set and do not validate a new primary method. The one-sided lower bound answers a different question from the two-sided intervals.
