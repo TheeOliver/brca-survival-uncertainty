@@ -160,8 +160,8 @@ their results highlight the censoring-model and upper-tail difficulties.
 The primary registered score envelope here is distinct from Qin's method. A
 post hoc, two-sided Cox working-model implementation of their bootstrap CPI is
 documented in [the Qin exploratory report](qin-exploratory.md); its results are
-kept separate from the frozen primary analysis. See also the local paper
-`references/literature/qin_2024_conformal_predictive_intervals_survival.md`.
+kept separate from the frozen primary analysis. That report links the paper and
+author implementation.
 
 ## What can be measured on censored test data
 

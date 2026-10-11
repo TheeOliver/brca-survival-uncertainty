@@ -1,8 +1,9 @@
 # Reproducing the thesis analysis
 
-All tests and pipeline execution in this session run through SLURM. Prepare the environment
-with `make setup`, download the public clinical tables with `make download`, and create the
-logs directory before submission. Never stage generated patient or posterior files.
+Run the full test suite and compute-heavy pipeline stages through SLURM. Prepare the
+environment with `make setup`, download the public clinical tables with `make download`,
+and create the logs directory before submission. Keep generated patient and posterior
+files out of Git.
 
 For a new analysis directory, with the registered configuration and a committed source tree:
 
@@ -33,9 +34,10 @@ sacct -j JOB_ID --format=JobID,State,ExitCode,Elapsed,MaxRSS
 ```
 
 Explicit development runs can append `config/default.yaml --allow-dirty`. Each records
-Git state plus a compressed source/config archive addressed by its SHA256. Checkpoint
-commits remain the user's responsibility. Match the manifest's archive/hash, configuration,
-raw checksums and `uv.lock` when reproducing numbers; a later Git commit alone is insufficient.
+Git state plus a compressed source/config archive addressed by its SHA256. For numerical
+reproduction, match the manifest's archive/hash, configuration, raw checksums and
+`uv.lock`; a later Git commit alone is insufficient. Clean-commit reproduction of the
+published run has not yet been signed off.
 
 Stage03 reuses only artifacts whose hashes, training data, configuration and fitting source
 match. Stage04 uses the saved train-only preprocessing and models. Stage05 writes its frozen

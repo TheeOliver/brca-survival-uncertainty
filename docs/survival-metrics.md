@@ -52,11 +52,6 @@ samples, and an unpaired comparison overstates the uncertainty of the difference
 
 A difference within bootstrap noise is not a difference. Say so.
 
-## Reference
-
-`references/notebooks_reference/Evaluating Survival Models guide (...).md` — quote the filename
-in shell commands. Its converted code is lossy: read for the API surface, never copy.
-
 ## Implemented analysis
 
 The training-derived interior grid is capped at 120 months and shared across all models and

@@ -178,7 +178,7 @@ and evidence showing where precision and identifiability remain limited. There i
 universal winning method, no replacement of the primary analysis, and no new claim of
 individual clinical reliability. All new comparisons remain post hoc.
 
-### Verification and handoff
+### Verification record
 
 - SLURM **1337**: `make format`, `make check` (**228 passed**) and `make test-all`
   (**232 passed**), including synthetic censoring/coverage tests and full synthetic
@@ -192,7 +192,8 @@ individual clinical reliability. All new comparisons remain post hoc.
 - Intermediate jobs 1334–1336 failed on test-fixture lint/import/manifest-lifecycle
   issues; 1339–1340 stopped on audit/export lint. These were corrected before the
   successful checks above. The completed real experiment was not rerun or modified.
-- No patient data or generated results were staged in the analysis run.
+- Patient-level data and full generated outputs remained outside Git during the analysis run.
 
-Full aggregate report: [comparison_report.md](../outputs/uncertainty_reliability/comparison_report.md).
-Independent audit: [independent_audit.json](../outputs/uncertainty_reliability/independent_audit.json).
+The [published aggregate comparison](results/reliability_comparison.md) and selected figures
+are available in this repository. The full machine-readable audit remains in the local
+generated outputs.

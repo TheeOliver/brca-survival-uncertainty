@@ -2,8 +2,9 @@
 
 ## The three-way split
 
-`scripts/02_make_splits.py` draws it **once** from `config.seed`, stratified by event
-indicator, and freezes patient IDs into `data/processed/splits.json`.
+I draw one DSS-event-stratified split using `config.seed` and freeze patient IDs in
+`data/processed/splits.json`. `scripts/02_make_splits.py` reuses that split on compatible
+reruns.
 
 | Set | Fraction | Used for | Never used for |
 | --- | --- | --- | --- |
@@ -11,10 +12,11 @@ indicator, and freezes patient IDs into `data/processed/splits.json`.
 | calibration | 0.25 | conformal quantiles only | any fitting or tuning |
 | test | 0.25 | final evaluation, read once | anything that influences a choice |
 
-**Why a separate calibration set.** Split conformal prediction needs nonconformity scores from
-data the model has never seen. Scoring on training residuals gives optimistically small scores
-and intervals that undercover. The calibration set is what buys the finite-sample guarantee,
-and it is spent the moment it influences any modelling decision.
+**Why I reserve a calibration set.** Split conformal prediction needs scores from patients
+the model has not seen during fitting. Training residuals can be optimistically small and
+produce intervals that undercover. I use calibration only for conformal thresholds and do
+not use it to select a model or revise the analysis. Any theoretical guarantee still
+depends on the stated exchangeability and censoring assumptions.
 
 ### Running stage 02
 
@@ -70,30 +72,31 @@ partition sizes and whether the frozen split was reused. They contain no patient
 
 ## The experiment matrix
 
-Three models x two feature sets = six fitted models, all on the identical split.
+I fit each of three models with two predictor sets for both DSS and OS: six arms per
+endpoint, 12 primary fits in total, all using the same frozen split.
 
-| | clinical | clinical + PAM50 |
+| Model | Clinical | Clinical + PAM50 |
 | --- | --- | --- |
-| Cox PH | | |
-| Bayesian Weibull AFT | | |
-| Random Survival Forest | | |
+| Cox PH | fit | fit |
+| Bayesian Weibull AFT | fit | fit |
+| Random Survival Forest | fit | fit |
 
-RSF is deliberately left untuned — the brief rules out hyperparameter optimisation. State this
-whenever RSF is compared against the other two.
+I leave RSF untuned in this comparison and state that limitation when comparing it with
+the other model families.
 
 ## Research questions and the artefact that answers each
 
 | RQ | Question | Artefact |
 | --- | --- | --- |
 | 1 | How well do clinical characteristics predict survival? | `outputs/metrics/performance.json`, clinical arm |
-| 2 | Does PAM50 improve the prognosis? | `outputs/metrics/rq2_feature_set_comparison.json` |
+| 2 | Does PAM50 improve predictive performance? | `outputs/metrics/rq2_feature_set_comparison.json` |
 | 3 | How do classical / Bayesian / ML models differ? | performance table across all six cells |
 | 4 | What uncertainty does the Bayesian model give? | `outputs/metrics/bayes_diagnostics_*.json`, posterior predictive intervals |
 | 5 | Do conformal intervals achieve 80/90/95%? | `outputs/metrics/conformal_coverage.json` |
 | 6 | Is the best-performing model also the best-calibrated? | joint table: C-index vs coverage vs width |
 
-RQ6 is the thesis' point: discrimination and trustworthy uncertainty are different properties
-and need not coincide.
+My central question is whether stronger discrimination also yields more useful and
+trustworthy uncertainty. These properties need not coincide.
 
 ## Completed analysis (2026-09-29)
 
@@ -103,13 +106,13 @@ fixed-ridge Qin settings. It has its own source-bound plan and does not redefine
 the primary endpoint, horizon, models or conclusions by test-driven selection.
 
 Realised partition counts and event rates are recorded in the stage-02 manifests.
-All six RQ conclusions, including uncertain comparisons and limitations, are in
-`outputs/reports/thesis_results.md` and `outputs/metrics/research_answers.json`;
-`docs/final-review.md` provides the versioned summary and verification record.
+The [published primary results](results/thesis_results.md) summarize all six research
+questions, including uncertain comparisons and limitations. More detailed machine-readable
+metrics remain local under `outputs/metrics/`.
 
 ## Implemented protocol
 
-The user selected DSS primary and OS sensitivity. The prepared cohort contains 1,979
+I selected DSS as primary and OS as sensitivity. The prepared cohort contains 1,979
 patients; the frozen split is 989/495/495. Both endpoints and feature arms use the same
 DSS-event-stratified assignments. Training and downstream stages load physically separate
 partition tables, whose bytes and membership are checked before use.
@@ -119,8 +122,8 @@ interpretation. There are 12 primary fits (three models × two feature arms × t
 and four DSS Bayesian sensitivity fits (alternative prior and lognormal family × two arms).
 The evaluation grid and conformal target horizons are selected before test access.
 
-Stage05 freezes code, configuration, model and calibration hashes before loading test once.
-It writes an integrity-checked local cache for interruption recovery, and stages03/04 then
+Stage 05 freezes code, configuration, model and calibration hashes before loading test once.
+It writes an integrity-checked local cache for interruption recovery, and stages 03/04 then
 refuse refitting or recalibration. Patient-level caches remain ignored. Bootstrap resampling
 preserves the primary event-stratum counts and pairs the feature arms. Results and generated
 RQ answers are written under `outputs/metrics/` and `outputs/reports/`; their final verified
