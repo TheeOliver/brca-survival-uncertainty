@@ -21,3 +21,5 @@ The implemented analysis uses public cBioPortal clinical tables; controlled expr
 are not required. No patient data are redistributed in Git. See the
 [registered decisions](docs/analysis-decisions.md). Generated results, figures and posterior
 draws stay in the ignored `outputs/` directory, with source and artifact hashes in run manifests.
+
+Selected aggregate reports and figures are available in [Results](docs/results/README.md).
