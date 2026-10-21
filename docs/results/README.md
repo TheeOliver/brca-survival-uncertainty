@@ -17,3 +17,9 @@ The [overall training survival curve (PNG)](figures/training_disease_specific_ov
 ## Exploratory reliability comparison
 
 [Read the post hoc reliability comparison](reliability_comparison.md), including coverage and width figures for disease-specific and overall survival at 120 and 300 months. These analyses reuse the test set and do not validate a new primary method. The one-sided lower bound answers a different question from the two-sided intervals.
+
+## Distribution-shift stress test
+
+[Read the fixed-model case-mix stress test](distribution-shift.md), including coverage bounds,
+interval width, and effective sample size under age and PAM50 reweighting. This uses
+the original held-out patients and is not an external validation cohort.

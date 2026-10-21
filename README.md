@@ -75,6 +75,11 @@ compares the later methods on the reused test set; it cannot validate a newly se
 primary method. A [hypothetical Bayesian profile](docs/results/figures/rq4_hypothetical_uncertainty_reference.png)
 illustrates posterior and predictive uncertainty; it is not an individual forecast.
 
+A separate [distribution-shift stress test](docs/results/distribution-shift.md) reweights the
+existing test patients toward different age and PAM50 mixes while keeping all fitted models
+and conformal thresholds fixed. It is exploratory internal sensitivity analysis, not
+external validation. The [analysis method](docs/distribution-shift.md) explains its scope.
+
 ## Run the pipeline
 
 The project uses Python managed by `uv`. The public clinical tables can be downloaded, but

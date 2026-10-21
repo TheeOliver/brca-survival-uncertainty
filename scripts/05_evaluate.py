@@ -259,6 +259,10 @@ def main():
     modes = parser.add_mutually_exclusive_group()
     modes.add_argument("--qin-exploratory", action="store_true")
     modes.add_argument("--reliability-exploratory", action="store_true")
+    modes.add_argument("--shift-exploratory", action="store_true")
+    parser.add_argument(
+        "--shift-config", default=str(PROJECT_ROOT / "config/distribution_shift.yaml")
+    )
     parser.add_argument("--qin-config", default=str(PROJECT_ROOT / "config/qin_exploratory.yaml"))
     parser.add_argument(
         "--reliability-config", default=str(PROJECT_ROOT / "config/uncertainty_reliability.yaml")
@@ -266,7 +270,9 @@ def main():
     args = parser.parse_args()
     require_compute_node("stage 05 (evaluate)")
     run = StageRun(
-        "05_uncertainty_reliability"
+        "05_distribution_shift"
+        if args.shift_exploratory
+        else "05_uncertainty_reliability"
         if args.reliability_exploratory
         else ("05_qin_exploratory" if args.qin_exploratory else "05_evaluate"),
         args.config,
@@ -274,6 +280,20 @@ def main():
     )
     cfg = run.config
     index = load_fit_index(run)
+    if args.shift_exploratory:
+        from brca.shift_analysis import freeze_shift_plan, run_shift_analysis, shift_directory
+
+        settings = freeze_shift_plan(run, index, args.shift_config)
+        cache = run.outputs / "evaluation/test_cache.pkl"
+        # The original test cache is read only after this separate plan is frozen.
+        test = pickle.loads(cache.read_bytes())
+        result = run_shift_analysis(run, index, settings, test)
+        run.finish(
+            [shift_directory(run) / "plan.json", result],
+            status="post_hoc_distribution_shift_complete",
+            n_test=len(test),
+        )
+        return
     if args.reliability_exploratory:
         from brca.reliability import (
             evaluate_reliability,
