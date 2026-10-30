@@ -7,9 +7,12 @@ accelerated failure time (AFT), and Random Survival Forest models, then evaluate
 prediction intervals at 80%, 90%, and 95% nominal coverage.
 
 The planned analysis has been implemented as an **internal validation study**. Selected
-aggregate results and figures are published in [Results](docs/results/README.md).
-Patient records, individual predictions, and fitted model objects are not in this
-repository. A dated clean-commit reproduction and its supporting logs, configurations,
+aggregate results and figures are published in [Results](docs/results/README.md). The exact
+public METABRIC clinical input snapshot used for model training, calibration, and testing is
+included under `data/raw/cbioportal_brca_metabric/` with provenance and SHA-256 checksums.
+Its source and reuse terms are documented in the [data license and attribution note](docs/metabric-data-license.md).
+Individual predictions, fitted model objects, and generated patient-level outputs are not in
+this repository. A dated clean-commit reproduction and its supporting logs, configurations,
 manifests, and audits are available in the
 [reproducibility package](docs/reproducibility/2026-10-30/README.md).
 
@@ -101,13 +104,12 @@ external validation. The [analysis method](docs/distribution-shift.md) explains 
 
 ## Run the pipeline
 
-The project uses Python managed by `uv`. The public clinical tables can be downloaded, but
-the original patient-level snapshot and full generated outputs are not redistributed here.
-Compute-heavy fitting, calibration, evaluation, and full tests run through SLURM:
+The project uses Python managed by `uv`. The exact clinical source snapshot is included and
+can be checked with `cd data/raw && sha256sum -c CHECKSUMS.sha256`. Generated outputs remain
+local. Compute-heavy fitting, calibration, evaluation, and full tests run through SLURM:
 
 ```bash
 make setup
-make download
 mkdir -p logs
 sbatch scripts/slurm/run_pipeline.sh config/default.yaml
 ```
@@ -126,7 +128,8 @@ establish that match.
 | `scripts/` | Pipeline stages, audits, exports, and SLURM launchers |
 | `tests/` | Synthetic-data tests; no real patient records |
 | `docs/` | Design, methods, data dictionary, runbook, and selected aggregate results |
-| `data/`, `outputs/` | Local inputs and generated artifacts, ignored by Git apart from a raw-data checksum manifest |
+| `data/raw/cbioportal_brca_metabric/` | Exact public METABRIC clinical input snapshot used in the analysis, with provenance and checksums |
+| Other `data/`, `outputs/` | Generated and derived data, ignored by Git |
 
 The [data dictionary](docs/metabric-data-dictionary.md) records the cBioPortal source and
 METABRIC references. This is prognostic research on one historical cohort, not a clinical

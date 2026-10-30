@@ -1,0 +1,22 @@
+{
+  "source": "cBioPortal REST API",
+  "api_base": "https://www.cbioportal.org/api",
+  "study_id": "brca_metabric",
+  "study_name": "Breast Cancer (METABRIC, Nature 2012 & Nat Commun 2016)",
+  "citation": "Pereira et al. Nat Commun 2016, Rueda et al. Nature 2019, Curtis et al. Nature 2012",
+  "pmid": "27161491,30867590,22522925",
+  "public_study": true,
+  "cbioportal_import_date": "2026-01-05 16:15:29",
+  "downloaded_at_utc": "2026-09-29T09:46:22+00:00",
+  "record_counts": {
+    "attributes": 36,
+    "patient": 51528,
+    "sample": 27868
+  },
+  "files_sha256": {
+    "study.json.gz": "8d30f8f7fdfb4e2eadc3a5e51316eebb6d37bac356bcbe02fdd3c255ac00b1a8",
+    "clinical_attributes.json.gz": "c1676034fecccca3a71f850515136720bc2fab95bfec2e11030351ff7db4df05",
+    "clinical_patient.json.gz": "929a60d07e95bfc7ab98b49608d488ab8e2a0f825e14b69ccf70b85bc53ce0d0",
+    "clinical_sample.json.gz": "f48fe6bce67b06f82da959184e28d01389a62d70eb41e642958c11a065665202"
+  }
+}

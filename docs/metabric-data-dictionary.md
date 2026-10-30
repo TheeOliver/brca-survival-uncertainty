@@ -12,10 +12,11 @@
 | Checksums | `data/raw/CHECKSUMS.sha256` (committed; `cd data/raw && sha256sum -c CHECKSUMS.sha256`) |
 | Cite | Curtis et al. 2012 (PMID 22522925), Pereira et al. 2016 (27161491), Rueda et al. 2019 (30867590), and cBioPortal (Cerami 2012, Gao 2013) |
 
+The exact public clinical snapshot used in the analysis is included in this repository under
+ODbL terms, with attribution and scope explained in the [data license note](metabric-data-license.md).
 Expression and raw genomic data remain controlled-access at EGA `EGAS00000000083`; this thesis
-does not need them (PAM50 is provided as a label). Public availability does **not** make this
-repo a redistribution point: patient-level files under `data/` stay ignored, while the raw
-snapshot checksum manifest is committed. Patient rows never enter Git.
+does not need them (PAM50 is provided as a label). Derived patient-level analysis tables,
+individual predictions, model objects, and generated outputs remain outside Git.
 
 `data/raw/` is immutable — `make download` refuses to overwrite an existing snapshot.
 

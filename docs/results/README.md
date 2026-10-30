@@ -2,7 +2,7 @@
 
 These aggregate results come from the completed local METABRIC analysis: breast-cancer-specific survival was primary, overall survival was a sensitivity analysis, and one frozen split contained 989 training, 495 calibration, and 495 test patients. The numerical pipeline has not been rerun from this new repository's Git history. This is internal validation, not external validation.
 
-[Read the detailed primary results](thesis_results.md). Patient-level data, individual predictions, model objects, and full generated outputs are not published here.
+[Read the detailed primary results](thesis_results.md). The exact public METABRIC clinical source snapshot is published in `data/raw/cbioportal_brca_metabric/` with provenance and checksums. Derived patient-level analysis tables, individual predictions, model objects, and full generated outputs are not published here.
 
 - [Training survival by PAM50 (PNG)](figures/training_disease_specific_pam50_subtype_km.png) · [PDF](figures/training_disease_specific_pam50_subtype_km.pdf): descriptive EDA; late curves have few patients at risk.
 - [Model discrimination (PNG)](figures/rq1_rq2_rq3_disease_specific_uno_c.png) · [PDF](figures/rq1_rq2_rq3_disease_specific_uno_c.pdf): Uno C with uncertainty.

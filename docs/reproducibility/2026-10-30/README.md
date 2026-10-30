@@ -11,8 +11,11 @@ tracked source snapshot is included as
 `manifests/source_82cb2becc700bd850ca1b15bfa3c2c20d020a38baaf517d995c3a37ec7dd35fa.tar.gz`
 (SHA-256 verified against the filename and manifests). To rerun the primary pipeline, use
 that archive in a fresh, isolated directory, then follow the commands below. The archive
-contains source/configuration files, not patient data or generated model artifacts. The
-post hoc shift extension has its own source snapshot in the adjacent archive beginning
+contains source/configuration files, not data or generated model artifacts. This repository
+separately includes the exact public METABRIC clinical input snapshot under
+`data/raw/cbioportal_brca_metabric/`; its provenance, attribution, and license are documented
+in [`docs/metabric-data-license.md`](../../metabric-data-license.md). The post hoc shift
+extension has its own source snapshot in the adjacent archive beginning
 `source_91ff1357`.
 
 For public release, machine-specific absolute run paths in logs and manifests are normalized
@@ -91,23 +94,26 @@ Configuration SHA-256 values:
 
 ## Reproduction commands
 
-The METABRIC clinical tables are not redistributed here. Download them with the stage-00
-script, then verify their bytes against `metabric-checksums.sha256` (run the checksum command
-from the `data/raw/` directory). The checksum file records the exact four-file snapshot used.
-If any downloaded file fails its checksum, that download is not the recorded snapshot and
-cannot support an exact rerun.
+The exact METABRIC clinical snapshot used in this rerun is included at
+`data/raw/cbioportal_brca_metabric/`. Verify it with the repository's `data/raw/CHECKSUMS.sha256`
+manifest. The dated package also contains `metabric-checksums.sha256` as an archival record.
+If a fresh download is made instead, it must match all four recorded hashes to count as the
+same snapshot.
 
 From a clean temporary directory (replace the first path with the local clone containing
 this package):
 
 ```bash
-REPRO_PACKAGE=/path/to/brca-survival-uncertainty/docs/reproducibility/2026-10-30
+REPO_ROOT=/path/to/brca-survival-uncertainty
+REPRO_PACKAGE="$REPO_ROOT/docs/reproducibility/2026-10-30"
 mkdir -p /tmp/brca-reproduction
 tar -xzf "$REPRO_PACKAGE/manifests/source_82cb2becc700bd850ca1b15bfa3c2c20d020a38baaf517d995c3a37ec7dd35fa.tar.gz" -C /tmp/brca-reproduction
+mkdir -p /tmp/brca-reproduction/data/raw
+cp -a "$REPO_ROOT/data/raw/cbioportal_brca_metabric" /tmp/brca-reproduction/data/raw/
+cp "$REPO_ROOT/data/raw/CHECKSUMS.sha256" /tmp/brca-reproduction/data/raw/
 cd /tmp/brca-reproduction
+(cd data/raw && sha256sum -c CHECKSUMS.sha256)
 uv sync --frozen
-uv run python scripts/00_download_data.py
-(cd data/raw && sha256sum -c "$REPRO_PACKAGE/metabric-checksums.sha256")
 sbatch scripts/slurm/run_pipeline.sh config/default.yaml
 sbatch scripts/slurm/run_stage.sh 05 config/default.yaml --qin-exploratory
 sbatch scripts/slurm/run_stage.sh 05 config/default.yaml --reliability-exploratory

@@ -7,10 +7,11 @@ staged="$(git diff --cached --name-only --diff-filter=ACMR)"
 [ -n "$staged" ] || exit 0
 fail=0
 
-# 1. Patient data and generated outputs never enter git.
+# 1. Generated patient outputs stay out of git. The narrow cBioPortal METABRIC
+#    public-source snapshot is an explicit ODbL-licensed reproducibility exception.
 bad="$(printf '%s\n' "$staged" \
   | grep -E '^(data|outputs)/|\.(csv|tsv|parquet|nc|feather|xlsx|h5|pkl)$' \
-  | grep -vE '(^|/)\.gitkeep$|^data/raw/CHECKSUMS\.sha256$' || true)"
+  | grep -vE '(^|/)\.gitkeep$|^data/raw/CHECKSUMS\.sha256$|^data/raw/cbioportal_brca_metabric/(clinical_attributes|clinical_patient|clinical_sample|study)\.json\.gz$|^data/raw/cbioportal_brca_metabric/PROVENANCE\.json$' || true)"
 if [ -n "$bad" ]; then
   echo "pre-commit: BLOCKED -- these must never be committed:" >&2
   printf '  %s\n' $bad >&2

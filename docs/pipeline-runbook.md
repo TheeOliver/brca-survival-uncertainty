@@ -1,9 +1,10 @@
 # Reproducing the thesis analysis
 
 Run the full test suite and compute-heavy pipeline stages through SLURM. Prepare the
-environment with `make setup`, download the public clinical tables with `make download`,
-and create the logs directory before submission. Keep generated patient and posterior
-files out of Git.
+environment with `make setup`; this repository includes the exact public METABRIC clinical
+snapshot used in the reported run. Verify it with `(cd data/raw && sha256sum -c CHECKSUMS.sha256)`
+and create the logs directory before submission. Keep generated patient and posterior files
+out of Git.
 
 For a new analysis directory, with the registered configuration and a committed source tree:
 

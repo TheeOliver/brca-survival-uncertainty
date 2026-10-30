@@ -1,10 +1,13 @@
-# --- Patient data: NEVER committed -------------------------------------------
-# This project uses public cBioPortal clinical tables, but Git does not redistribute
-# patient-level extracts. Controlled-access expression/genomic data are not used.
+# --- Data --------------------------------------------------------------------
+# The exact public METABRIC clinical input snapshot is committed under ODbL for
+# reproducibility. Keep all other raw and derived patient data ignored.
 data/**
 !data/**/
 !data/**/.gitkeep
 !data/raw/CHECKSUMS.sha256
+!data/raw/cbioportal_brca_metabric/
+!data/raw/cbioportal_brca_metabric/*.json.gz
+!data/raw/cbioportal_brca_metabric/PROVENANCE.json
 
 # --- Generated artefacts ------------------------------------------------------
 # Everything here is reproducible from code + config + seed. Committing it
