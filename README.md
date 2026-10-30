@@ -7,14 +7,20 @@ accelerated failure time (AFT), and Random Survival Forest models, then evaluate
 prediction intervals at 80%, 90%, and 95% nominal coverage.
 
 The planned analysis has been implemented as an **internal validation study**. Selected
-aggregate results and figures are published in [Results](docs/results/README.md). The exact
-public METABRIC clinical input snapshot used for model training, calibration, and testing is
-included under `data/raw/cbioportal_brca_metabric/` with provenance and SHA-256 checksums.
-Its source and reuse terms are documented in the [data license and attribution note](docs/metabric-data-license.md).
-Individual predictions, fitted model objects, and generated patient-level outputs are not in
-this repository. A dated clean-commit reproduction and its supporting logs, configurations,
+aggregate results and figures are published in [Results](docs/results/README.md). Individual
+predictions, fitted model objects, and generated patient-level outputs are not in this
+repository. A dated clean-commit reproduction and its supporting logs, configurations,
 manifests, and audits are available in the
 [reproducibility package](docs/reproducibility/2026-10-30/README.md).
+
+## Data used
+
+The exact public METABRIC clinical snapshot used for model training, calibration, and testing
+is included in [`data/raw/cbioportal_brca_metabric/`](data/raw/cbioportal_brca_metabric/).
+Check the files against [`CHECKSUMS.sha256`](data/raw/CHECKSUMS.sha256); the snapshot's
+provenance and reuse terms are summarized in the
+[data license and attribution note](docs/metabric-data-license.md). These are the cBioPortal
+clinical source tables, not the derived analysis cohort or patient-level predictions.
 
 ## Study design
 
