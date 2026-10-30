@@ -1,0 +1,957 @@
+{
+  "analysis_manifest": "<RUN_ROOT>/outputs/manifests/05_uncertainty_reliability_20261030T162442026621Z.json",
+  "analysis_manifest_sha256": "90f354a941efaaea4060cf9aa0b09f41fe27d4e3ed29cc56784e75d21a23de87",
+  "analysis_slurm_job_id": "1858",
+  "audit_slurm_job_id": "1859",
+  "audit_source": "<RUN_ROOT>/scripts/audit_reliability.py",
+  "audit_source_sha256": "1acec71b12dedb0dd758c0efdfe8a58ff54430478553644652154f315d5a2e81",
+  "baseline_evidence": {
+    "<RUN_ROOT>/outputs/evaluation/plan.json": {
+      "original_manifest": "<RUN_ROOT>/outputs/manifests/05_evaluate_20261030T161359912022Z.json",
+      "original_manifest_sha256": "24aeef46169c073b006ab6ad9750ceab5e5775db5298ceb92cd41483ea351aa0",
+      "original_slurm_job_id": "1856",
+      "original_source_archive": "<RUN_ROOT>/outputs/manifests/source_82cb2becc700bd850ca1b15bfa3c2c20d020a38baaf517d995c3a37ec7dd35fa.tar.gz",
+      "original_source_archive_sha256": "82cb2becc700bd850ca1b15bfa3c2c20d020a38baaf517d995c3a37ec7dd35fa",
+      "sha256": "e24c403132ab763be6541f8d0bcb2e25273046e35ea8e79f9bf3badd5af280cf"
+    },
+    "<RUN_ROOT>/outputs/metrics/conformal_coverage.json": {
+      "original_manifest": "<RUN_ROOT>/outputs/manifests/05_evaluate_20261030T161359912022Z.json",
+      "original_manifest_sha256": "24aeef46169c073b006ab6ad9750ceab5e5775db5298ceb92cd41483ea351aa0",
+      "original_slurm_job_id": "1856",
+      "original_source_archive": "<RUN_ROOT>/outputs/manifests/source_82cb2becc700bd850ca1b15bfa3c2c20d020a38baaf517d995c3a37ec7dd35fa.tar.gz",
+      "original_source_archive_sha256": "82cb2becc700bd850ca1b15bfa3c2c20d020a38baaf517d995c3a37ec7dd35fa",
+      "sha256": "097db02b0e98aab0d4837ff72120f242cdfaf4d04b1c888cc5b3373454f32bd6"
+    },
+    "<RUN_ROOT>/outputs/qin_exploratory/coverage.json": {
+      "original_manifest": "<RUN_ROOT>/outputs/manifests/05_qin_exploratory_20261030T162012696542Z.json",
+      "original_manifest_sha256": "df48c0233600a7df1d6c61c8d6bfaa06ec734a36afa2d10da96f9f8ec0cf1d35",
+      "original_slurm_job_id": "1857",
+      "original_source_archive": "<RUN_ROOT>/outputs/manifests/source_82cb2becc700bd850ca1b15bfa3c2c20d020a38baaf517d995c3a37ec7dd35fa.tar.gz",
+      "original_source_archive_sha256": "82cb2becc700bd850ca1b15bfa3c2c20d020a38baaf517d995c3a37ec7dd35fa",
+      "sha256": "fff733af93e1dd11f8a789a31d6ec44cedc668266c716185c3c11b3d4183d735"
+    },
+    "<RUN_ROOT>/outputs/qin_exploratory/plan.json": {
+      "original_manifest": "<RUN_ROOT>/outputs/manifests/05_qin_exploratory_20261030T162012696542Z.json",
+      "original_manifest_sha256": "df48c0233600a7df1d6c61c8d6bfaa06ec734a36afa2d10da96f9f8ec0cf1d35",
+      "original_slurm_job_id": "1857",
+      "original_source_archive": "<RUN_ROOT>/outputs/manifests/source_82cb2becc700bd850ca1b15bfa3c2c20d020a38baaf517d995c3a37ec7dd35fa.tar.gz",
+      "original_source_archive_sha256": "82cb2becc700bd850ca1b15bfa3c2c20d020a38baaf517d995c3a37ec7dd35fa",
+      "sha256": "6363ae434dfaf4e65428b6f33e9b1194ffda42fc13a6320ac9189f63230b804e"
+    }
+  },
+  "checks_passed": 2530,
+  "checks_total": 2530,
+  "coverage_cells": {
+    "conservative_lower_bound": 72,
+    "qin_bootstrap_ridge_cox": 24
+  },
+  "failures": [],
+  "ninety_percent_summary": [
+    {
+      "alpha": 0.1,
+      "horizon_months": 120.0,
+      "ipcw_coverage": 0.9463634372517232,
+      "key": "disease_specific__cox__clinical__alpha0.1__horizon120__conservative_lower_bound",
+      "observable_coverage_lower": 0.896969696969697,
+      "observable_coverage_upper": 0.9494949494949495,
+      "width_difference": {
+        "approximate_due_to_failed_resamples": false,
+        "ci": [
+          -5.199999999999903,
+          -3.7666666666665947
+        ],
+        "ci_is_infinite": [
+          false,
+          false
+        ],
+        "estimate": -4.399999999999892,
+        "estimate_is_infinite": false,
+        "estimate_is_undefined": false,
+        "failed_replicates": 0,
+        "minimum_success_fraction": 0.9,
+        "status": "ok",
+        "success_fraction": 1.0,
+        "valid_replicates": 1000
+      },
+      "width_median_months": 90.0666666666667
+    },
+    {
+      "alpha": 0.1,
+      "horizon_months": 120.0,
+      "ipcw_coverage": 0.9413999399744313,
+      "key": "disease_specific__cox__clinical__alpha0.1__horizon120__qin_bootstrap_ridge_cox",
+      "observable_coverage_lower": 0.9191919191919192,
+      "observable_coverage_upper": 0.9454545454545454,
+      "width_difference": {
+        "approximate_due_to_failed_resamples": false,
+        "ci": [
+          -1.2999999999999972,
+          -0.0666666666666913
+        ],
+        "ci_is_infinite": [
+          false,
+          false
+        ],
+        "estimate": -0.16666666666669983,
+        "estimate_is_infinite": false,
+        "estimate_is_undefined": false,
+        "failed_replicates": 0,
+        "minimum_success_fraction": 0.9,
+        "status": "ok",
+        "success_fraction": 1.0,
+        "valid_replicates": 1000
+      },
+      "width_median_months": 92.5333333333333
+    },
+    {
+      "alpha": 0.1,
+      "horizon_months": 300.0,
+      "ipcw_coverage": null,
+      "key": "disease_specific__cox__clinical__alpha0.1__horizon300__conservative_lower_bound",
+      "observable_coverage_lower": 0.896969696969697,
+      "observable_coverage_upper": 0.9494949494949495,
+      "width_difference": {
+        "approximate_due_to_failed_resamples": false,
+        "ci": [
+          -5.066666666666606,
+          -3.1333333333333258
+        ],
+        "ci_is_infinite": [
+          false,
+          false
+        ],
+        "estimate": -4.299999999999898,
+        "estimate_is_infinite": false,
+        "estimate_is_undefined": false,
+        "failed_replicates": 0,
+        "minimum_success_fraction": 0.9,
+        "status": "ok",
+        "success_fraction": 1.0,
+        "valid_replicates": 1000
+      },
+      "width_median_months": 270.0666666666667
+    },
+    {
+      "alpha": 0.1,
+      "horizon_months": 300.0,
+      "ipcw_coverage": null,
+      "key": "disease_specific__cox__clinical__alpha0.1__horizon300__qin_bootstrap_ridge_cox",
+      "observable_coverage_lower": 0.898989898989899,
+      "observable_coverage_upper": 0.9454545454545454,
+      "width_difference": {
+        "approximate_due_to_failed_resamples": false,
+        "ci": [
+          -1.1333333333333258,
+          -0.3666666666666174
+        ],
+        "ci_is_infinite": [
+          false,
+          false
+        ],
+        "estimate": -0.7333333333333485,
+        "estimate_is_infinite": false,
+        "estimate_is_undefined": false,
+        "failed_replicates": 0,
+        "minimum_success_fraction": 0.9,
+        "status": "ok",
+        "success_fraction": 1.0,
+        "valid_replicates": 1000
+      },
+      "width_median_months": 271.4
+    },
+    {
+      "alpha": 0.1,
+      "horizon_months": 120.0,
+      "ipcw_coverage": 0.9441271026815081,
+      "key": "disease_specific__cox__clinical_molecular__alpha0.1__horizon120__conservative_lower_bound",
+      "observable_coverage_lower": 0.8888888888888888,
+      "observable_coverage_upper": 0.9474747474747475,
+      "width_difference": {
+        "approximate_due_to_failed_resamples": false,
+        "ci": [
+          -6.300000000000097,
+          -4.566666666666691
+        ],
+        "ci_is_infinite": [
+          false,
+          false
+        ],
+        "estimate": -5.866666666666703,
+        "estimate_is_infinite": false,
+        "estimate_is_undefined": false,
+        "failed_replicates": 0,
+        "minimum_success_fraction": 0.9,
+        "status": "ok",
+        "success_fraction": 1.0,
+        "valid_replicates": 1000
+      },
+      "width_median_months": 88.1333333333333
+    },
+    {
+      "alpha": 0.1,
+      "horizon_months": 120.0,
+      "ipcw_coverage": 0.9414481803043504,
+      "key": "disease_specific__cox__clinical_molecular__alpha0.1__horizon120__qin_bootstrap_ridge_cox",
+      "observable_coverage_lower": 0.9212121212121213,
+      "observable_coverage_upper": 0.9454545454545454,
+      "width_difference": {
+        "approximate_due_to_failed_resamples": false,
+        "ci": [
+          0.36666666666670267,
+          1.033333333333303
+        ],
+        "ci_is_infinite": [
+          false,
+          false
+        ],
+        "estimate": 0.9000000000000057,
+        "estimate_is_infinite": false,
+        "estimate_is_undefined": false,
+        "failed_replicates": 0,
+        "minimum_success_fraction": 0.9,
+        "status": "ok",
+        "success_fraction": 1.0,
+        "valid_replicates": 1000
+      },
+      "width_median_months": 92.0333333333333
+    },
+    {
+      "alpha": 0.1,
+      "horizon_months": 300.0,
+      "ipcw_coverage": null,
+      "key": "disease_specific__cox__clinical_molecular__alpha0.1__horizon300__conservative_lower_bound",
+      "observable_coverage_lower": 0.8888888888888888,
+      "observable_coverage_upper": 0.9474747474747475,
+      "width_difference": {
+        "approximate_due_to_failed_resamples": false,
+        "ci": [
+          -6.033333333333758,
+          -3.5666666666667197
+        ],
+        "ci_is_infinite": [
+          false,
+          false
+        ],
+        "estimate": -4.966666666666697,
+        "estimate_is_infinite": false,
+        "estimate_is_undefined": false,
+        "failed_replicates": 0,
+        "minimum_success_fraction": 0.9,
+        "status": "ok",
+        "success_fraction": 1.0,
+        "valid_replicates": 1000
+      },
+      "width_median_months": 268.1333333333333
+    },
+    {
+      "alpha": 0.1,
+      "horizon_months": 300.0,
+      "ipcw_coverage": null,
+      "key": "disease_specific__cox__clinical_molecular__alpha0.1__horizon300__qin_bootstrap_ridge_cox",
+      "observable_coverage_lower": 0.896969696969697,
+      "observable_coverage_upper": 0.9434343434343434,
+      "width_difference": {
+        "approximate_due_to_failed_resamples": false,
+        "ci": [
+          0.2999999999999545,
+          1.066666666666606
+        ],
+        "ci_is_infinite": [
+          false,
+          false
+        ],
+        "estimate": 0.5999999999999659,
+        "estimate_is_infinite": false,
+        "estimate_is_undefined": false,
+        "failed_replicates": 0,
+        "minimum_success_fraction": 0.9,
+        "status": "ok",
+        "success_fraction": 1.0,
+        "valid_replicates": 1000
+      },
+      "width_median_months": 270.9333333333333
+    },
+    {
+      "alpha": 0.1,
+      "horizon_months": 120.0,
+      "ipcw_coverage": 0.9343724798406859,
+      "key": "disease_specific__rsf__clinical__alpha0.1__horizon120__conservative_lower_bound",
+      "observable_coverage_lower": 0.8808080808080808,
+      "observable_coverage_upper": 0.9393939393939394,
+      "width_difference": {
+        "approximate_due_to_failed_resamples": false,
+        "ci": [
+          -6.866666666666717,
+          -3.8666666666666174
+        ],
+        "ci_is_infinite": [
+          false,
+          false
+        ],
+        "estimate": -5.23333333333332,
+        "estimate_is_infinite": false,
+        "estimate_is_undefined": false,
+        "failed_replicates": 0,
+        "minimum_success_fraction": 0.9,
+        "status": "ok",
+        "success_fraction": 1.0,
+        "valid_replicates": 1000
+      },
+      "width_median_months": 85.53333333333339
+    },
+    {
+      "alpha": 0.1,
+      "horizon_months": 300.0,
+      "ipcw_coverage": null,
+      "key": "disease_specific__rsf__clinical__alpha0.1__horizon300__conservative_lower_bound",
+      "observable_coverage_lower": 0.8808080808080808,
+      "observable_coverage_upper": 0.9393939393939394,
+      "width_difference": {
+        "approximate_due_to_failed_resamples": false,
+        "ci": [
+          -6.866666666666731,
+          -3.8666666666665606
+        ],
+        "ci_is_infinite": [
+          false,
+          false
+        ],
+        "estimate": -5.233333333333292,
+        "estimate_is_infinite": false,
+        "estimate_is_undefined": false,
+        "failed_replicates": 0,
+        "minimum_success_fraction": 0.9,
+        "status": "ok",
+        "success_fraction": 1.0,
+        "valid_replicates": 1000
+      },
+      "width_median_months": 265.5333333333334
+    },
+    {
+      "alpha": 0.1,
+      "horizon_months": 120.0,
+      "ipcw_coverage": 0.9477026246374806,
+      "key": "disease_specific__rsf__clinical_molecular__alpha0.1__horizon120__conservative_lower_bound",
+      "observable_coverage_lower": 0.8747474747474747,
+      "observable_coverage_upper": 0.9515151515151515,
+      "width_difference": {
+        "approximate_due_to_failed_resamples": false,
+        "ci": [
+          -5.8333333333333,
+          0.29999999999999716
+        ],
+        "ci_is_infinite": [
+          false,
+          false
+        ],
+        "estimate": -3.7666666666667084,
+        "estimate_is_infinite": false,
+        "estimate_is_undefined": false,
+        "failed_replicates": 0,
+        "minimum_success_fraction": 0.9,
+        "status": "ok",
+        "success_fraction": 1.0,
+        "valid_replicates": 1000
+      },
+      "width_median_months": 87.6333333333333
+    },
+    {
+      "alpha": 0.1,
+      "horizon_months": 300.0,
+      "ipcw_coverage": null,
+      "key": "disease_specific__rsf__clinical_molecular__alpha0.1__horizon300__conservative_lower_bound",
+      "observable_coverage_lower": 0.8747474747474747,
+      "observable_coverage_upper": 0.9515151515151515,
+      "width_difference": {
+        "approximate_due_to_failed_resamples": false,
+        "ci": [
+          -5.833333333333314,
+          0.30000000000001137
+        ],
+        "ci_is_infinite": [
+          false,
+          false
+        ],
+        "estimate": -3.7666666666666515,
+        "estimate_is_infinite": false,
+        "estimate_is_undefined": false,
+        "failed_replicates": 0,
+        "minimum_success_fraction": 0.9,
+        "status": "ok",
+        "success_fraction": 1.0,
+        "valid_replicates": 1000
+      },
+      "width_median_months": 267.6333333333333
+    },
+    {
+      "alpha": 0.1,
+      "horizon_months": 120.0,
+      "ipcw_coverage": 0.9417160800538165,
+      "key": "disease_specific__weibull__clinical__alpha0.1__horizon120__conservative_lower_bound",
+      "observable_coverage_lower": 0.896969696969697,
+      "observable_coverage_upper": 0.9454545454545454,
+      "width_difference": {
+        "approximate_due_to_failed_resamples": false,
+        "ci": [
+          -8.672400400199507,
+          -6.952046814201452
+        ],
+        "ci_is_infinite": [
+          false,
+          false
+        ],
+        "estimate": -8.001087130881075,
+        "estimate_is_infinite": false,
+        "estimate_is_undefined": false,
+        "failed_replicates": 0,
+        "minimum_success_fraction": 0.9,
+        "status": "ok",
+        "success_fraction": 1.0,
+        "valid_replicates": 1000
+      },
+      "width_median_months": 86.48793010694462
+    },
+    {
+      "alpha": 0.1,
+      "horizon_months": 300.0,
+      "ipcw_coverage": null,
+      "key": "disease_specific__weibull__clinical__alpha0.1__horizon300__conservative_lower_bound",
+      "observable_coverage_lower": 0.896969696969697,
+      "observable_coverage_upper": 0.9454545454545454,
+      "width_difference": {
+        "approximate_due_to_failed_resamples": false,
+        "ci": [
+          -8.167618379638895,
+          -6.228799317541416
+        ],
+        "ci_is_infinite": [
+          false,
+          false
+        ],
+        "estimate": -7.7842606354132045,
+        "estimate_is_infinite": false,
+        "estimate_is_undefined": false,
+        "failed_replicates": 0,
+        "minimum_success_fraction": 0.9,
+        "status": "ok",
+        "success_fraction": 1.0,
+        "valid_replicates": 1000
+      },
+      "width_median_months": 266.48793010694465
+    },
+    {
+      "alpha": 0.1,
+      "horizon_months": 120.0,
+      "ipcw_coverage": 0.9482951565183574,
+      "key": "disease_specific__weibull__clinical_molecular__alpha0.1__horizon120__conservative_lower_bound",
+      "observable_coverage_lower": 0.8949494949494949,
+      "observable_coverage_upper": 0.9515151515151515,
+      "width_difference": {
+        "approximate_due_to_failed_resamples": false,
+        "ci": [
+          -9.8512512549637,
+          -8.05171340096264
+        ],
+        "ci_is_infinite": [
+          false,
+          false
+        ],
+        "estimate": -8.769829613024058,
+        "estimate_is_infinite": false,
+        "estimate_is_undefined": false,
+        "failed_replicates": 0,
+        "minimum_success_fraction": 0.9,
+        "status": "ok",
+        "success_fraction": 1.0,
+        "valid_replicates": 1000
+      },
+      "width_median_months": 86.35297492122676
+    },
+    {
+      "alpha": 0.1,
+      "horizon_months": 300.0,
+      "ipcw_coverage": null,
+      "key": "disease_specific__weibull__clinical_molecular__alpha0.1__horizon300__conservative_lower_bound",
+      "observable_coverage_lower": 0.8949494949494949,
+      "observable_coverage_upper": 0.9515151515151515,
+      "width_difference": {
+        "approximate_due_to_failed_resamples": false,
+        "ci": [
+          -9.503071749822482,
+          -7.314689000886233
+        ],
+        "ci_is_infinite": [
+          false,
+          false
+        ],
+        "estimate": -7.940610886301499,
+        "estimate_is_infinite": false,
+        "estimate_is_undefined": false,
+        "failed_replicates": 0,
+        "minimum_success_fraction": 0.9,
+        "status": "ok",
+        "success_fraction": 1.0,
+        "valid_replicates": 1000
+      },
+      "width_median_months": 266.35297492122675
+    },
+    {
+      "alpha": 0.1,
+      "horizon_months": 120.0,
+      "ipcw_coverage": 0.9544538264103937,
+      "key": "overall__cox__clinical__alpha0.1__horizon120__conservative_lower_bound",
+      "observable_coverage_lower": 0.9414141414141414,
+      "observable_coverage_upper": 0.9575757575757575,
+      "width_difference": {
+        "approximate_due_to_failed_resamples": false,
+        "ci": [
+          3.4666666666665975,
+          5.766666666666509
+        ],
+        "ci_is_infinite": [
+          false,
+          false
+        ],
+        "estimate": 4.833333333333215,
+        "estimate_is_infinite": false,
+        "estimate_is_undefined": false,
+        "failed_replicates": 0,
+        "minimum_success_fraction": 0.9,
+        "status": "ok",
+        "success_fraction": 1.0,
+        "valid_replicates": 1000
+      },
+      "width_median_months": 102.26666666666661
+    },
+    {
+      "alpha": 0.1,
+      "horizon_months": 120.0,
+      "ipcw_coverage": 0.9672749029269179,
+      "key": "overall__cox__clinical__alpha0.1__horizon120__qin_bootstrap_ridge_cox",
+      "observable_coverage_lower": 0.9595959595959596,
+      "observable_coverage_upper": 0.9696969696969697,
+      "width_difference": {
+        "approximate_due_to_failed_resamples": false,
+        "ci": [
+          -1.6333333333336668,
+          0.0
+        ],
+        "ci_is_infinite": [
+          false,
+          false
+        ],
+        "estimate": -0.16666666666669983,
+        "estimate_is_infinite": false,
+        "estimate_is_undefined": false,
+        "failed_replicates": 0,
+        "minimum_success_fraction": 0.9,
+        "status": "ok",
+        "success_fraction": 1.0,
+        "valid_replicates": 1000
+      },
+      "width_median_months": 100.8333333333333
+    },
+    {
+      "alpha": 0.1,
+      "horizon_months": 300.0,
+      "ipcw_coverage": 0.9523666367467053,
+      "key": "overall__cox__clinical__alpha0.1__horizon300__conservative_lower_bound",
+      "observable_coverage_lower": 0.9414141414141414,
+      "observable_coverage_upper": 0.9575757575757575,
+      "width_difference": {
+        "approximate_due_to_failed_resamples": false,
+        "ci": [
+          4.199999999999591,
+          9.666666666665549
+        ],
+        "ci_is_infinite": [
+          false,
+          false
+        ],
+        "estimate": 7.499999999998863,
+        "estimate_is_infinite": false,
+        "estimate_is_undefined": false,
+        "failed_replicates": 0,
+        "minimum_success_fraction": 0.9,
+        "status": "ok",
+        "success_fraction": 1.0,
+        "valid_replicates": 1000
+      },
+      "width_median_months": 282.2666666666666
+    },
+    {
+      "alpha": 0.1,
+      "horizon_months": 300.0,
+      "ipcw_coverage": 0.9649279749146027,
+      "key": "overall__cox__clinical__alpha0.1__horizon300__qin_bootstrap_ridge_cox",
+      "observable_coverage_lower": 0.8929292929292929,
+      "observable_coverage_upper": 0.9696969696969697,
+      "width_difference": {
+        "approximate_due_to_failed_resamples": false,
+        "ci": [
+          -0.23333333333368955,
+          0.0
+        ],
+        "ci_is_infinite": [
+          false,
+          false
+        ],
+        "estimate": 0.0,
+        "estimate_is_infinite": false,
+        "estimate_is_undefined": false,
+        "failed_replicates": 0,
+        "minimum_success_fraction": 0.9,
+        "status": "ok",
+        "success_fraction": 1.0,
+        "valid_replicates": 1000
+      },
+      "width_median_months": 277.83333333333303
+    },
+    {
+      "alpha": 0.1,
+      "horizon_months": 120.0,
+      "ipcw_coverage": 0.9501259836768198,
+      "key": "overall__cox__clinical_molecular__alpha0.1__horizon120__conservative_lower_bound",
+      "observable_coverage_lower": 0.9333333333333333,
+      "observable_coverage_upper": 0.9535353535353536,
+      "width_difference": {
+        "approximate_due_to_failed_resamples": false,
+        "ci": [
+          -3.2666666666665947,
+          0.16666666666669983
+        ],
+        "ci_is_infinite": [
+          false,
+          false
+        ],
+        "estimate": -1.2333333333333059,
+        "estimate_is_infinite": false,
+        "estimate_is_undefined": false,
+        "failed_replicates": 0,
+        "minimum_success_fraction": 0.9,
+        "status": "ok",
+        "success_fraction": 1.0,
+        "valid_replicates": 1000
+      },
+      "width_median_months": 98.6
+    },
+    {
+      "alpha": 0.1,
+      "horizon_months": 120.0,
+      "ipcw_coverage": 0.9217216526220623,
+      "key": "overall__cox__clinical_molecular__alpha0.1__horizon120__qin_bootstrap_ridge_cox",
+      "observable_coverage_lower": 0.9131313131313131,
+      "observable_coverage_upper": 0.9272727272727272,
+      "width_difference": {
+        "approximate_due_to_failed_resamples": false,
+        "ci": [
+          -1.5,
+          -0.033333333333416704
+        ],
+        "ci_is_infinite": [
+          false,
+          false
+        ],
+        "estimate": -0.4333333333334082,
+        "estimate_is_infinite": false,
+        "estimate_is_undefined": false,
+        "failed_replicates": 0,
+        "minimum_success_fraction": 0.9,
+        "status": "ok",
+        "success_fraction": 1.0,
+        "valid_replicates": 1000
+      },
+      "width_median_months": 93.23333333333329
+    },
+    {
+      "alpha": 0.1,
+      "horizon_months": 300.0,
+      "ipcw_coverage": 0.9478404671745047,
+      "key": "overall__cox__clinical_molecular__alpha0.1__horizon300__conservative_lower_bound",
+      "observable_coverage_lower": 0.9333333333333333,
+      "observable_coverage_upper": 0.9535353535353536,
+      "width_difference": {
+        "approximate_due_to_failed_resamples": false,
+        "ci": [
+          -0.7666666666663673,
+          4.300000000000352
+        ],
+        "ci_is_infinite": [
+          false,
+          false
+        ],
+        "estimate": 1.4000000000003752,
+        "estimate_is_infinite": false,
+        "estimate_is_undefined": false,
+        "failed_replicates": 0,
+        "minimum_success_fraction": 0.9,
+        "status": "ok",
+        "success_fraction": 1.0,
+        "valid_replicates": 1000
+      },
+      "width_median_months": 278.6
+    },
+    {
+      "alpha": 0.1,
+      "horizon_months": 300.0,
+      "ipcw_coverage": 0.9090755711238024,
+      "key": "overall__cox__clinical_molecular__alpha0.1__horizon300__qin_bootstrap_ridge_cox",
+      "observable_coverage_lower": 0.8525252525252526,
+      "observable_coverage_upper": 0.9252525252525252,
+      "width_difference": {
+        "approximate_due_to_failed_resamples": false,
+        "ci": [
+          -0.8666666666666742,
+          0.0
+        ],
+        "ci_is_infinite": [
+          false,
+          false
+        ],
+        "estimate": -0.6333333333333258,
+        "estimate_is_infinite": false,
+        "estimate_is_undefined": false,
+        "failed_replicates": 0,
+        "minimum_success_fraction": 0.9,
+        "status": "ok",
+        "success_fraction": 1.0,
+        "valid_replicates": 1000
+      },
+      "width_median_months": 269.7
+    },
+    {
+      "alpha": 0.1,
+      "horizon_months": 120.0,
+      "ipcw_coverage": 0.9285613014914464,
+      "key": "overall__rsf__clinical__alpha0.1__horizon120__conservative_lower_bound",
+      "observable_coverage_lower": 0.9111111111111111,
+      "observable_coverage_upper": 0.9333333333333333,
+      "width_difference": {
+        "approximate_due_to_failed_resamples": false,
+        "ci": [
+          -5.5,
+          -3.6666666666667
+        ],
+        "ci_is_infinite": [
+          false,
+          false
+        ],
+        "estimate": -5.266666666666694,
+        "estimate_is_infinite": false,
+        "estimate_is_undefined": false,
+        "failed_replicates": 0,
+        "minimum_success_fraction": 0.9,
+        "status": "ok",
+        "success_fraction": 1.0,
+        "valid_replicates": 1000
+      },
+      "width_median_months": 90.3333333333333
+    },
+    {
+      "alpha": 0.1,
+      "horizon_months": 300.0,
+      "ipcw_coverage": 0.9252875662605158,
+      "key": "overall__rsf__clinical__alpha0.1__horizon300__conservative_lower_bound",
+      "observable_coverage_lower": 0.9111111111111111,
+      "observable_coverage_upper": 0.9333333333333333,
+      "width_difference": {
+        "approximate_due_to_failed_resamples": false,
+        "ci": [
+          -5.333333333333371,
+          -3.3333333333333144
+        ],
+        "ci_is_infinite": [
+          false,
+          false
+        ],
+        "estimate": -4.800000000000011,
+        "estimate_is_infinite": false,
+        "estimate_is_undefined": false,
+        "failed_replicates": 0,
+        "minimum_success_fraction": 0.9,
+        "status": "ok",
+        "success_fraction": 1.0,
+        "valid_replicates": 1000
+      },
+      "width_median_months": 270.3333333333333
+    },
+    {
+      "alpha": 0.1,
+      "horizon_months": 120.0,
+      "ipcw_coverage": 0.9285506066825512,
+      "key": "overall__rsf__clinical_molecular__alpha0.1__horizon120__conservative_lower_bound",
+      "observable_coverage_lower": 0.901010101010101,
+      "observable_coverage_upper": 0.9333333333333333,
+      "width_difference": {
+        "approximate_due_to_failed_resamples": false,
+        "ci": [
+          -6.9333333333332945,
+          -4.433333333333309
+        ],
+        "ci_is_infinite": [
+          false,
+          false
+        ],
+        "estimate": -5.633333333333297,
+        "estimate_is_infinite": false,
+        "estimate_is_undefined": false,
+        "failed_replicates": 0,
+        "minimum_success_fraction": 0.9,
+        "status": "ok",
+        "success_fraction": 1.0,
+        "valid_replicates": 1000
+      },
+      "width_median_months": 90.0333333333334
+    },
+    {
+      "alpha": 0.1,
+      "horizon_months": 300.0,
+      "ipcw_coverage": 0.9252763813534888,
+      "key": "overall__rsf__clinical_molecular__alpha0.1__horizon300__conservative_lower_bound",
+      "observable_coverage_lower": 0.901010101010101,
+      "observable_coverage_upper": 0.9333333333333333,
+      "width_difference": {
+        "approximate_due_to_failed_resamples": false,
+        "ci": [
+          -6.433333333333337,
+          -3.8666666666665606
+        ],
+        "ci_is_infinite": [
+          false,
+          false
+        ],
+        "estimate": -5.099999999999909,
+        "estimate_is_infinite": false,
+        "estimate_is_undefined": false,
+        "failed_replicates": 0,
+        "minimum_success_fraction": 0.9,
+        "status": "ok",
+        "success_fraction": 1.0,
+        "valid_replicates": 1000
+      },
+      "width_median_months": 270.0333333333334
+    },
+    {
+      "alpha": 0.1,
+      "horizon_months": 120.0,
+      "ipcw_coverage": 0.9522380188810209,
+      "key": "overall__weibull__clinical__alpha0.1__horizon120__conservative_lower_bound",
+      "observable_coverage_lower": 0.9414141414141414,
+      "observable_coverage_upper": 0.9555555555555556,
+      "width_difference": {
+        "approximate_due_to_failed_resamples": false,
+        "ci": [
+          1.0969918946032209,
+          3.421549917499476
+        ],
+        "ci_is_infinite": [
+          false,
+          false
+        ],
+        "estimate": 2.7088969276119315,
+        "estimate_is_infinite": false,
+        "estimate_is_undefined": false,
+        "failed_replicates": 0,
+        "minimum_success_fraction": 0.9,
+        "status": "ok",
+        "success_fraction": 1.0,
+        "valid_replicates": 1000
+      },
+      "width_median_months": 102.20002600381528
+    },
+    {
+      "alpha": 0.1,
+      "horizon_months": 300.0,
+      "ipcw_coverage": 0.9500492880733123,
+      "key": "overall__weibull__clinical__alpha0.1__horizon300__conservative_lower_bound",
+      "observable_coverage_lower": 0.9414141414141414,
+      "observable_coverage_upper": 0.9555555555555556,
+      "width_difference": {
+        "approximate_due_to_failed_resamples": false,
+        "ci": [
+          4.484580272481367,
+          9.88195557026404
+        ],
+        "ci_is_infinite": [
+          false,
+          false
+        ],
+        "estimate": 7.316455891072508,
+        "estimate_is_infinite": false,
+        "estimate_is_undefined": false,
+        "failed_replicates": 0,
+        "minimum_success_fraction": 0.9,
+        "status": "ok",
+        "success_fraction": 1.0,
+        "valid_replicates": 1000
+      },
+      "width_median_months": 282.20002600381525
+    },
+    {
+      "alpha": 0.1,
+      "horizon_months": 120.0,
+      "ipcw_coverage": 0.9457621195720797,
+      "key": "overall__weibull__clinical_molecular__alpha0.1__horizon120__conservative_lower_bound",
+      "observable_coverage_lower": 0.9333333333333333,
+      "observable_coverage_upper": 0.9494949494949495,
+      "width_difference": {
+        "approximate_due_to_failed_resamples": false,
+        "ci": [
+          -2.6872746963031062,
+          -1.1382142744462982
+        ],
+        "ci_is_infinite": [
+          false,
+          false
+        ],
+        "estimate": -1.947473212071401,
+        "estimate_is_infinite": false,
+        "estimate_is_undefined": false,
+        "failed_replicates": 0,
+        "minimum_success_fraction": 0.9,
+        "status": "ok",
+        "success_fraction": 1.0,
+        "valid_replicates": 1000
+      },
+      "width_median_months": 97.62985442113879
+    },
+    {
+      "alpha": 0.1,
+      "horizon_months": 300.0,
+      "ipcw_coverage": 0.9432766255231275,
+      "key": "overall__weibull__clinical_molecular__alpha0.1__horizon300__conservative_lower_bound",
+      "observable_coverage_lower": 0.9333333333333333,
+      "observable_coverage_upper": 0.9494949494949495,
+      "width_difference": {
+        "approximate_due_to_failed_resamples": false,
+        "ci": [
+          0.18104489643479837,
+          4.470521279454829
+        ],
+        "ci_is_infinite": [
+          false,
+          false
+        ],
+        "estimate": 2.058403237241464,
+        "estimate_is_infinite": false,
+        "estimate_is_undefined": false,
+        "failed_replicates": 0,
+        "minimum_success_fraction": 0.9,
+        "status": "ok",
+        "success_fraction": 1.0,
+        "valid_replicates": 1000
+      },
+      "width_median_months": 277.62985442113876
+    }
+  ],
+  "patient_artifacts": "hashed_only_never_deserialized",
+  "ridge_successful_refits": {
+    "disease_specific__cox__clinical": 1000,
+    "disease_specific__cox__clinical_molecular": 1000,
+    "overall__cox__clinical": 1000,
+    "overall__cox__clinical_molecular": 1000
+  },
+  "scope": "source_artifact_and_aggregate_consistency_not_numerical_reproduction",
+  "status": "passed",
+  "suppressed_subgroup_cells": 96
+}

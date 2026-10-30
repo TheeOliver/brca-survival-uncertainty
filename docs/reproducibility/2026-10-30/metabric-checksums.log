@@ -1,0 +1,4 @@
+cbioportal_brca_metabric/clinical_attributes.json.gz: OK
+cbioportal_brca_metabric/clinical_patient.json.gz: OK
+cbioportal_brca_metabric/clinical_sample.json.gz: OK
+cbioportal_brca_metabric/study.json.gz: OK

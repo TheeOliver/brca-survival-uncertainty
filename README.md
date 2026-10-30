@@ -9,8 +9,9 @@ prediction intervals at 80%, 90%, and 95% nominal coverage.
 The planned analysis has been implemented as an **internal validation study**. Selected
 aggregate results and figures are published in [Results](docs/results/README.md).
 Patient records, individual predictions, and fitted model objects are not in this
-repository. A clean-commit numerical
-reproduction of the published run has not yet been signed off.
+repository. A dated clean-commit reproduction and its supporting logs, configurations,
+manifests, and audits are available in the
+[reproducibility package](docs/reproducibility/2026-10-30/README.md).
 
 ## Study design
 
@@ -37,6 +38,24 @@ where the training data support it. These are population-level assessments under
 assumptions, not individual clinical guarantees. A [Qin bootstrap comparator](docs/qin-exploratory.md)
 and [one-sided lower-bound/ridge sensitivity](docs/uncertainty-reliability.md) were added
 **after** the primary test analysis; they remain exploratory.
+
+## Reproducibility
+
+The primary pipeline was rerun on SLURM from clean source commit
+`a5073403952c8bf3fd22f2f374a17c0fc4f10e52` using the archived METABRIC snapshot and
+configuration. The rerun recreated the 1,979-patient cohort and the frozen 989/495/495
+split. The primary aggregate results matched the saved results exactly across 188,067
+numeric values; the separate Qin and uncertainty-reliability aggregates also matched
+exactly. The METABRIC case-mix stress test was replayed from its archived source snapshot
+and matched across 31,254 numeric values.
+
+The separately refitted alternate-prior Weibull MCMC sensitivity chains passed their
+diagnostic gates but were not bitwise identical, as expected from Monte Carlo variation.
+The reproducibility report quantifies these small changes and identifies the affected
+exports. It also contains the SLURM logs, exact configuration and lock files, provenance
+manifests, source archives for the post hoc shift extension, checksums, and commands needed
+to reproduce or audit the runs. TCGA-BRCA is not part of this reproduction or claimed as
+external validation.
 
 ## Selected findings
 

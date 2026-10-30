@@ -1,0 +1,103 @@
+{
+  "audit_slurm_job_id": "1860",
+  "audit_source_sha256": "204743d749327183b919597e182776df0a4a32c38be721a1f72c254ea003b205",
+  "calibration_diagnostic_statuses": {
+    "available": 54,
+    "not_applicable_primary_envelope": 72,
+    "unavailable_censoring_support": 18
+  },
+  "calibration_methods": {
+    "conservative": 72,
+    "ipcw_sensitivity": 72
+  },
+  "calibration_states": 144,
+  "checks": 825,
+  "clean_commit_reproduction": false,
+  "config_sha256": "53b7d51a54e8f0e7f5b87982c2f98f4018ee0c9d5ba3316f8e8c56cb9608ba9e",
+  "data_origin_metadata": {
+    "preparation": {
+      "input_kind": "real_metabric",
+      "manifest": "01_prepare_data_20261030T161113890127Z.json",
+      "slurm_job_id": "1856",
+      "source_sha256": "82cb2becc700bd850ca1b15bfa3c2c20d020a38baaf517d995c3a37ec7dd35fa"
+    },
+    "split": {
+      "input_kind": "processed",
+      "manifest": "02_make_splits_20261030T161115453226Z.json",
+      "slurm_job_id": "1856",
+      "source_sha256": "82cb2becc700bd850ca1b15bfa3c2c20d020a38baaf517d995c3a37ec7dd35fa"
+    }
+  },
+  "dirty_source_snapshots": false,
+  "errors": [],
+  "export_source_files_checked": 8,
+  "frozen_evaluation_plan": {
+    "analysis_files": 31,
+    "slurm_job_id": "1856",
+    "status": "cached"
+  },
+  "hashed_registered_artifacts": 43,
+  "models": 12,
+  "numerical_rerun_performed": false,
+  "portability_note": "Manifests and fit indices contain absolute artifact paths. Restore the original directory layout or explicitly migrate/revalidate paths when moving the analysis.",
+  "producing_manifests": {
+    "03_fit_models": {
+      "allow_dirty": false,
+      "git_dirty": false,
+      "git_sha": "a5073403952c8bf3fd22f2f374a17c0fc4f10e52",
+      "input_artifacts": 0,
+      "manifest": "03_fit_models_20261030T161120493330Z.json",
+      "output_artifacts": 44,
+      "recorded_packages": 83,
+      "slurm_job_id": "1856",
+      "source_sha256": "82cb2becc700bd850ca1b15bfa3c2c20d020a38baaf517d995c3a37ec7dd35fa",
+      "status": "complete",
+      "wall_clock_seconds": 137.59383073542267
+    },
+    "04_conformal": {
+      "allow_dirty": false,
+      "git_dirty": false,
+      "git_sha": "a5073403952c8bf3fd22f2f374a17c0fc4f10e52",
+      "input_artifacts": 0,
+      "manifest": "04_conformal_20261030T161347494831Z.json",
+      "output_artifacts": 1,
+      "recorded_packages": 83,
+      "slurm_job_id": "1856",
+      "source_sha256": "82cb2becc700bd850ca1b15bfa3c2c20d020a38baaf517d995c3a37ec7dd35fa",
+      "status": "complete",
+      "wall_clock_seconds": 11.335897089913487
+    },
+    "05_evaluate": {
+      "allow_dirty": false,
+      "git_dirty": false,
+      "git_sha": "a5073403952c8bf3fd22f2f374a17c0fc4f10e52",
+      "input_artifacts": 0,
+      "manifest": "05_evaluate_20261030T161359912022Z.json",
+      "output_artifacts": 16,
+      "recorded_packages": 83,
+      "slurm_job_id": "1856",
+      "source_sha256": "82cb2becc700bd850ca1b15bfa3c2c20d020a38baaf517d995c3a37ec7dd35fa",
+      "status": "complete",
+      "wall_clock_seconds": 179.71161962021142
+    },
+    "06_export_results": {
+      "allow_dirty": false,
+      "git_dirty": false,
+      "git_sha": "a5073403952c8bf3fd22f2f374a17c0fc4f10e52",
+      "input_artifacts": 22,
+      "manifest": "06_export_results_20261030T161708830730Z.json",
+      "output_artifacts": 378,
+      "recorded_packages": 83,
+      "slurm_job_id": "1856",
+      "source_sha256": "82cb2becc700bd850ca1b15bfa3c2c20d020a38baaf517d995c3a37ec7dd35fa",
+      "status": "complete",
+      "wall_clock_seconds": 54.99172719754279
+    }
+  },
+  "schema_version": 1,
+  "scope": "Patient partitions, evaluation caches and posterior/model objects were not decoded. Registered artifact bytes were hashed; partition digests were compared in metadata. This checks integrity, not numerical reproducibility. Uncommitted snapshots are explicitly recorded and do not satisfy a clean-commit reproduction requirement.",
+  "sensitivities": 4,
+  "source_archives_checked": 1,
+  "status": "integrity_checks_passed",
+  "timestamp_utc": "2026-10-30T16:31:54.079827+00:00"
+}
