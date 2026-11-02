@@ -367,6 +367,7 @@ def _bootstrap_interval_draws(
     intervals: PredictionIntervals,
     selections: np.ndarray,
     weights: np.ndarray | None,
+    near_full_width_fraction: float | None = None,
 ) -> dict[str, np.ndarray]:
     """Use precisely the same patient selections for every reported statistic."""
     certain, possible, covered = _coverage_indicators(y, intervals)
@@ -385,6 +386,9 @@ def _bootstrap_interval_draws(
         "ipcw_coverage": np.full(len(selections), np.nan),
         "ipcw_ht_coverage": np.full(len(selections), np.nan),
     }
+    if near_full_width_fraction is not None:
+        near_full = intervals.width >= near_full_width_fraction * intervals.horizon
+        draws["near_full_horizon_fraction"] = near_full[selections].mean(axis=1)
     if weights is not None:
         denominator = weights[selections].sum(axis=1)
         numerator = (weights * covered)[selections].sum(axis=1)
@@ -481,6 +485,7 @@ def coverage_summary(
     min_censoring_survival: float,
     minimum_bootstrap_success_fraction: float,
     bootstrap_strata: np.ndarray | None = None,
+    near_full_width_fraction: float | None = None,
 ) -> dict[str, Any]:
     """Summarise coverage bounds, assumption-dependent IPCW coverage and width.
 
@@ -505,6 +510,8 @@ def coverage_summary(
         bootstrap_strata,
         n,
     )
+    if near_full_width_fraction is not None and not 0 < near_full_width_fraction <= 1:
+        raise ValueError("near_full_width_fraction must be in (0, 1].")
     horizon = intervals.horizon
     known = event | (time >= horizon)
     certain, possible, covered = _coverage_indicators(y_test, intervals)
@@ -537,6 +544,12 @@ def coverage_summary(
         )
         if n
         else None,
+        "near_full_width_fraction_threshold": near_full_width_fraction,
+        "near_full_horizon_fraction": (
+            float((intervals.width >= near_full_width_fraction * intervals.horizon).mean())
+            if n and near_full_width_fraction is not None
+            else None
+        ),
         "quantile_is_infinite": intervals.quantile_is_infinite,
         "ipcw_coverage": None,
         "ipcw_coverage_ci": None,
@@ -548,6 +561,7 @@ def coverage_summary(
         "width_q25_ci_months": None,
         "width_q75_ci_months": None,
         "full_support_fraction_ci": None,
+        "near_full_horizon_fraction_ci": None,
         "infinite_interval_fraction_ci": None,
         "bootstrap_statistics": {},
         "confidence_level": confidence_level,
@@ -578,7 +592,9 @@ def coverage_summary(
         report["ipcw_observed_mass"] = float(weights.mean())
     if bootstrap_replicates:
         selections = _bootstrap_indices(n, bootstrap_replicates, seed, bootstrap_strata)
-        draws = _bootstrap_interval_draws(y_test, intervals, selections, weights)
+        draws = _bootstrap_interval_draws(
+            y_test, intervals, selections, weights, near_full_width_fraction
+        )
         summaries = {
             key: _draw_summary(value, confidence_level, minimum_bootstrap_success_fraction)
             for key, value in draws.items()
@@ -608,6 +624,9 @@ def paired_interval_comparison(
     min_censoring_survival: float,
     minimum_bootstrap_success_fraction: float,
     bootstrap_strata: np.ndarray | None = None,
+    reference_label: str = "clinical",
+    comparison_label: str = "clinical_molecular",
+    near_full_width_fraction: float | None = None,
 ) -> dict[str, Any]:
     """Molecular-minus-clinical differences with paired test-patient bootstrap.
 
@@ -632,9 +651,11 @@ def paired_interval_comparison(
         bootstrap_strata,
         n,
     )
+    if near_full_width_fraction is not None and not 0 < near_full_width_fraction <= 1:
+        raise ValueError("near_full_width_fraction must be in (0, 1].")
     horizon = intervals_clinical.horizon
     report: dict[str, Any] = {
-        "direction": "clinical_molecular_minus_clinical",
+        "direction": f"{comparison_label}_minus_{reference_label}",
         "n_test": n,
         "n_cal_clinical": intervals_clinical.n_cal,
         "n_cal_molecular": intervals_molecular.n_cal,
@@ -648,7 +669,7 @@ def paired_interval_comparison(
         if bootstrap_strata is not None
         else "ordinary_test_patient",
         "ci_scope": "test_bootstrap_conditional_on_model_calibration_and_train_censoring_fit",
-        "width_interpretation": "positive_difference_means_wider_molecular_intervals",
+        "width_interpretation": f"positive_difference_means_wider_{comparison_label}_intervals",
         "differences": {},
     }
     keys = [
@@ -662,6 +683,8 @@ def paired_interval_comparison(
         "infinite_interval_fraction",
         "ipcw_ht_coverage",
     ]
+    if near_full_width_fraction is not None:
+        keys.append("near_full_horizon_fraction")
     if not n:
         report["ipcw_status"] = "unavailable_empty_subgroup"
         report["differences"] = {
@@ -689,8 +712,12 @@ def paired_interval_comparison(
     selections = np.vstack(
         [np.arange(n), _bootstrap_indices(n, bootstrap_replicates, seed, bootstrap_strata)]
     )
-    clinical = _bootstrap_interval_draws(y_test, intervals_clinical, selections, weights)
-    molecular = _bootstrap_interval_draws(y_test, intervals_molecular, selections, weights)
+    clinical = _bootstrap_interval_draws(
+        y_test, intervals_clinical, selections, weights, near_full_width_fraction
+    )
+    molecular = _bootstrap_interval_draws(
+        y_test, intervals_molecular, selections, weights, near_full_width_fraction
+    )
     for key in keys:
         # infinity-infinity is genuinely undefined, not a zero width difference.
         with np.errstate(invalid="ignore"):
