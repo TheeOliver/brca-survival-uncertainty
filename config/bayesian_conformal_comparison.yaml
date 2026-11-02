@@ -1,0 +1,4 @@
+# Post hoc exploratory comparison; primary row follows the supervisor's request.
+main_comparison:
+  alpha: 0.10 # 90% nominal coverage
+  horizon_months: 120.0
