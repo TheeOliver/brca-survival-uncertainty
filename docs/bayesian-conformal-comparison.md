@@ -13,7 +13,11 @@ individual event times. They include posterior parameter uncertainty and future
 event-time variation. They are not credible intervals for the survival curve.
 The conformalized interval uses these exact endpoints and applies the existing
 nonnegative conservative score-envelope quantile, so it can widen but cannot
-narrow the native interval.
+narrow the native interval. The calibration quantile is reported alongside the
+comparison: it is zero for both feature sets at 90%/120 months, which explains
+why those intervals are identical. Across the supplementary settings it is zero
+at 90% and 95%, and 3.3 months for the clinical model and 1.3 months for the
+clinical + PAM50 model at 80% for both horizons.
 
 Both feature sets are included for the primary disease-specific survival
 endpoint. The main row is 90% nominal coverage at 120 months. All registered
@@ -26,9 +30,12 @@ where the existing support checks allow it, interval widths, and paired
 conformal-minus-native differences with test-patient bootstrap intervals. The
 coverage bounds are not confidence intervals for latent coverage. IPCW assumes
 independent censoring and adequate support; bootstrap intervals condition on the
-fitted models, calibration states and training censoring estimate. At 300
-months, unsupported IPCW results remain unavailable rather than being replaced
-with estimates.
+fitted models, calibration states and training censoring estimate. In particular,
+a bootstrap interval for the width difference can collapse to a point when the
+fixed calibration quantile produces the same additive expansion across every
+test-patient resample; it does not include uncertainty in estimating that
+quantile. At 300 months, unsupported IPCW results remain unavailable rather than
+being replaced with estimates.
 
 All comparisons are exploratory because they reuse a test set already examined
 in the primary analysis. They do not provide independent validation or an
