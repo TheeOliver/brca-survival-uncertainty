@@ -376,8 +376,9 @@ def _paired_methods(y_test, reference, candidate, y_train, kwargs, *, direction)
     comparison = paired_interval_comparison(y_test, reference, candidate, y_train, **kwargs)
     comparison["direction"] = direction
     comparison["width_interpretation"] = "positive_difference_means_wider_candidate_intervals"
-    comparison["n_cal_reference"] = comparison.pop("n_cal_clinical")
-    comparison["n_cal_candidate"] = comparison.pop("n_cal_molecular")
+    comparison.pop("n_cal_clinical", None)
+    comparison.pop("n_cal_molecular", None)
+    comparison["n_cal_candidate"] = comparison.pop("n_cal_comparison")
     return comparison
 
 

@@ -657,8 +657,8 @@ def paired_interval_comparison(
     report: dict[str, Any] = {
         "direction": f"{comparison_label}_minus_{reference_label}",
         "n_test": n,
-        "n_cal_clinical": intervals_clinical.n_cal,
-        "n_cal_molecular": intervals_molecular.n_cal,
+        "n_cal_reference": intervals_clinical.n_cal,
+        "n_cal_comparison": intervals_molecular.n_cal,
         "alpha": intervals_clinical.alpha,
         "horizon_months": _finite_number(horizon),
         "same_patient_resamples": True,
@@ -672,6 +672,11 @@ def paired_interval_comparison(
         "width_interpretation": f"positive_difference_means_wider_{comparison_label}_intervals",
         "differences": {},
     }
+    # Preserve the original RQ2 field names for existing reports, while keeping
+    # generic labels for other comparisons such as the predictor-free baseline.
+    if reference_label == "clinical" and comparison_label == "clinical_molecular":
+        report["n_cal_clinical"] = intervals_clinical.n_cal
+        report["n_cal_molecular"] = intervals_molecular.n_cal
     keys = [
         "ipcw_coverage",
         "observable_coverage_lower",

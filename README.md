@@ -103,6 +103,19 @@ compares the later methods on the reused test set; it cannot validate a newly se
 primary method. A [hypothetical Bayesian profile](docs/results/figures/rq4_hypothetical_uncertainty_reference.png)
 illustrates posterior and predictive uncertainty; it is not an individual forecast.
 
+### Predictor-free Kaplan–Meier baseline (post hoc)
+
+At 90% nominal coverage and 120 months, the conformalized training-only Kaplan–Meier
+baseline has a median interval width of **98.7 months** and empirical coverage bounds of
+**93.7–95.4%**. The six patient-specific model arms have median widths of **90.8–95.1 months**,
+only **3.6–7.9 months narrower**; their coverage bounds range from **91.5–96.8%**. The
+trivial `[0, 120]` interval has 100% coverage by construction and no individual information.
+These results suggest modest gains in interval width from individual predictors in this
+comparison; the post hoc reuse of the test set makes the comparison exploratory, not
+independent validation. Coverage bounds reflect censoring-compatible outcomes, while IPCW
+estimates rely on independent censoring. See the [method and limitations](docs/predictor-free-baseline.md),
+[LaTeX results table](tables/predictor_free_baseline_main.tex), and [exported figure](images/predictor_free_baseline_main.pdf).
+
 A separate [distribution-shift stress test](docs/results/distribution-shift.md) reweights the
 existing test patients toward different age and PAM50 mixes while keeping all fitted models
 and conformal thresholds fixed. It is exploratory internal sensitivity analysis, not
