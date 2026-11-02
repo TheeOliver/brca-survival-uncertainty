@@ -113,8 +113,26 @@ trivial `[0, 120]` interval has 100% coverage by construction and no individual 
 These results suggest modest gains in interval width from individual predictors in this
 comparison; the post hoc reuse of the test set makes the comparison exploratory, not
 independent validation. Coverage bounds reflect censoring-compatible outcomes, while IPCW
-estimates rely on independent censoring. See the [method and limitations](docs/predictor-free-baseline.md),
-[LaTeX results table](tables/predictor_free_baseline_main.tex), and [exported figure](images/predictor_free_baseline_main.pdf).
+estimates rely on independent censoring. See the [method and limitations](docs/predictor-free-baseline.md)
+and [exported figure](images/predictor_free_baseline_main.pdf).
+
+### Bayesian predictive versus conformalized intervals (post hoc)
+
+This comparison uses the same individual event-time posterior-predictive intervals before and
+after the existing conformal calibration; these are not credible intervals for a survival
+curve. At 90% nominal coverage and 120 months, the calibration quantile is zero for both
+feature sets, so coverage estimates and interval widths are unchanged. For the clinical model,
+the empirical coverage bounds are **93.5–96.2%**, IPCW coverage is **0.959 (95% CI 0.941–0.976)**,
+and median width is **94.5 months**. With PAM50, these are **94.5–96.8%**, **0.965 (0.947–0.980)**,
+and **95.1 months**.
+
+At 80% nominal coverage and 120 months, calibration widens the median intervals by **3.3 months**
+for the clinical model and **1.3 months** with PAM50. The corresponding IPCW coverage changes
+are **+1.32 percentage points (95% CI 0.43–2.41)** and **+0.22 points (0.00–0.68)**. The calibration
+quantile is also zero at 95%. At 300 months, median widths are about **250–287 months** and IPCW
+coverage is unsupported by the censoring data. These are exploratory results from reuse of the
+already examined test set; bootstrap intervals condition on the fitted models, calibration
+quantiles, and training censoring estimate. See the [comparison protocol and limitations](docs/bayesian-conformal-comparison.md).
 
 A separate [distribution-shift stress test](docs/results/distribution-shift.md) reweights the
 existing test patients toward different age and PAM50 mixes while keeping all fitted models
