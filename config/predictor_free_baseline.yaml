@@ -1,0 +1,6 @@
+# Post hoc exploratory comparator; the split, alphas, horizons and bootstrap
+# settings are inherited from config/default.yaml and frozen pipeline artifacts.
+main_comparison:
+  alpha: 0.10 # 90% nominal coverage
+  horizon_months: 120.0
+near_full_width_fraction: 0.90 # width at least this fraction of [0, horizon]

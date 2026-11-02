@@ -259,19 +259,36 @@ def main():
     modes = parser.add_mutually_exclusive_group()
     modes.add_argument("--qin-exploratory", action="store_true")
     modes.add_argument("--reliability-exploratory", action="store_true")
+    modes.add_argument("--external-validation", action="store_true")
     modes.add_argument("--shift-exploratory", action="store_true")
+    modes.add_argument("--predictor-free-baseline", action="store_true")
+    parser.add_argument(
+        "--external-config", default=str(PROJECT_ROOT / "config/external_validation.yaml")
+    )
     parser.add_argument(
         "--shift-config", default=str(PROJECT_ROOT / "config/distribution_shift.yaml")
+    )
+    parser.add_argument(
+        "--prepare-only",
+        action="store_true",
+        help="Fit external common-feature models before evaluation",
     )
     parser.add_argument("--qin-config", default=str(PROJECT_ROOT / "config/qin_exploratory.yaml"))
     parser.add_argument(
         "--reliability-config", default=str(PROJECT_ROOT / "config/uncertainty_reliability.yaml")
+    )
+    parser.add_argument(
+        "--baseline-config", default=str(PROJECT_ROOT / "config/predictor_free_baseline.yaml")
     )
     args = parser.parse_args()
     require_compute_node("stage 05 (evaluate)")
     run = StageRun(
         "05_distribution_shift"
         if args.shift_exploratory
+        else "05_external_validation"
+        if args.external_validation
+        else "05_predictor_free_baseline"
+        if args.predictor_free_baseline
         else "05_uncertainty_reliability"
         if args.reliability_exploratory
         else ("05_qin_exploratory" if args.qin_exploratory else "05_evaluate"),
@@ -294,6 +311,36 @@ def main():
             n_test=len(test),
         )
         return
+    if args.external_validation:
+        from brca.external_validation import (
+            evaluate_external,
+            extension_directory,
+            freeze_extension_plan,
+            prepare_external_models,
+            run_shift_analysis,
+        )
+
+        settings = freeze_extension_plan(run, index, args.external_config)
+        state = prepare_external_models(run, settings)
+        directory = extension_directory(run)
+        artifacts = [
+            directory / "plan.json",
+            directory / "preparation.json",
+            directory / "preparation_binding.json",
+        ]
+        if args.prepare_only:
+            run.finish(artifacts, status="external_models_prepared_without_external_evaluation")
+            return
+        cache = run.outputs / "evaluation/test_cache.pkl"
+        original = json.loads((run.outputs / "evaluation/plan.json").read_text())
+        if sha256_file(cache) != original["test_cache_sha256"]:
+            raise ValueError("Original test cache changed")
+        # Sole original-test reader; separate exploratory plan and preparation are fixed.
+        test = pickle.loads(cache.read_bytes())
+        artifacts.append(run_shift_analysis(run, index, settings, test))
+        artifacts.extend(evaluate_external(run, settings, state))
+        run.finish(artifacts, status="exploratory_external_and_shift_complete")
+        return
     if args.reliability_exploratory:
         from brca.reliability import (
             evaluate_reliability,
@@ -315,6 +362,15 @@ def main():
         run_qin_exploratory(run, index, args.qin_config)
         return
     calibration = load_calibration(run, index)
+    if args.predictor_free_baseline:
+        from brca.evaluation.predictor_free import run_predictor_free_baseline
+
+        artifacts = run_predictor_free_baseline(
+            run, index, calibration, Path(args.baseline_config).resolve()
+        )
+        run.finish(artifacts, status="post_hoc_exploratory_complete")
+        print(f"Predictor-free baseline report: {artifacts[-1]}", flush=True)
+        return
     train = load_partition(cfg, "train")
     test = frozen_test_cache(run, index, calibration)
     predictions, base_quantiles = {}, {}
