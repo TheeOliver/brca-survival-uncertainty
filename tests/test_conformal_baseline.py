@@ -64,7 +64,7 @@ def test_paired_baseline_comparison_labels_and_near_full_delta_are_correct():
     y_test = labels([10, 30, 40, 60])
     y_train = labels([100, 120])
     baseline = PredictionIntervals(np.zeros(4), np.full(4, 100), 0.1, 50, 100, "km")
-    model = PredictionIntervals(np.zeros(4), np.full(4, 50), 0.1, 50, 100, "model")
+    model = PredictionIntervals(np.zeros(4), np.full(4, 50), 0.1, 23, 100, "model")
     report = paired_interval_comparison(
         y_test,
         baseline,
@@ -80,5 +80,8 @@ def test_paired_baseline_comparison_labels_and_near_full_delta_are_correct():
         near_full_width_fraction=0.9,
     )
     assert report["direction"] == "cox_clinical_minus_predictor_free_km"
+    assert report["n_cal_reference"] == 50
+    assert report["n_cal_comparison"] == 23
+    assert "n_cal_clinical" not in report
     assert report["differences"]["width_median_months"]["estimate"] == -50
     assert report["differences"]["near_full_horizon_fraction"]["estimate"] == -1
