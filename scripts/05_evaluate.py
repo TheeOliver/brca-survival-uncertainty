@@ -262,6 +262,7 @@ def main():
     modes.add_argument("--external-validation", action="store_true")
     modes.add_argument("--shift-exploratory", action="store_true")
     modes.add_argument("--predictor-free-baseline", action="store_true")
+    modes.add_argument("--bayesian-conformal-exploratory", action="store_true")
     parser.add_argument(
         "--external-config", default=str(PROJECT_ROOT / "config/external_validation.yaml")
     )
@@ -280,6 +281,10 @@ def main():
     parser.add_argument(
         "--baseline-config", default=str(PROJECT_ROOT / "config/predictor_free_baseline.yaml")
     )
+    parser.add_argument(
+        "--bayesian-conformal-config",
+        default=str(PROJECT_ROOT / "config/bayesian_conformal_comparison.yaml"),
+    )
     args = parser.parse_args()
     require_compute_node("stage 05 (evaluate)")
     run = StageRun(
@@ -287,6 +292,8 @@ def main():
         if args.shift_exploratory
         else "05_external_validation"
         if args.external_validation
+        else "05_bayesian_conformal_comparison"
+        if args.bayesian_conformal_exploratory
         else "05_predictor_free_baseline"
         if args.predictor_free_baseline
         else "05_uncertainty_reliability"
@@ -370,6 +377,15 @@ def main():
         )
         run.finish(artifacts, status="post_hoc_exploratory_complete")
         print(f"Predictor-free baseline report: {artifacts[-1]}", flush=True)
+        return
+    if args.bayesian_conformal_exploratory:
+        from brca.evaluation.bayesian_conformal import run_bayesian_conformal_comparison
+
+        artifacts = run_bayesian_conformal_comparison(
+            run, index, calibration, Path(args.bayesian_conformal_config).resolve()
+        )
+        run.finish(artifacts, status="post_hoc_exploratory_complete")
+        print(f"Bayesian/conformal comparison report: {artifacts[1]}", flush=True)
         return
     train = load_partition(cfg, "train")
     test = frozen_test_cache(run, index, calibration)
